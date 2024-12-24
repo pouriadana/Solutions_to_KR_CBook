@@ -29,6 +29,11 @@ int main()
         }
     }
 
+    for (int i = 0; i < UPPER; ++i) {
+        printf("Len%d\t", i);
+    }
+    putchar('\n');
+
     int x = 0;
     for (int i = 0; i < UPPER; ++i) {
         ++x;
