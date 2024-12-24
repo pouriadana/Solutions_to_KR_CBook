@@ -47,5 +47,5 @@ int main()
         }
         putchar('\n');
     }
-    printf("\n");
+    putchar('\n');
 }
