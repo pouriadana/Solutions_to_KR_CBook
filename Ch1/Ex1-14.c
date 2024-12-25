@@ -1,7 +1,5 @@
 #include <stdio.h>
 
-#define OUT 0
-#define IN 1
 #define ALEPH 26
 
 int main()
