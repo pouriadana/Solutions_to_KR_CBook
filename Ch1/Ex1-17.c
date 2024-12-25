@@ -1,3 +1,6 @@
+/* Issue: prints line with greater than 80 character as they are typed 
+   Fix: Must store and print such lines after there is no more input 
+*/
 #include <stdio.h>
 
 #define MAXLINE 1000     // set to 100 for demonstration purposes
