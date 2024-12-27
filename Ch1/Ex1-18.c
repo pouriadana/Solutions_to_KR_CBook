@@ -51,12 +51,8 @@ void processline(char line[], int len)
     // printf("line[len - 1]: %d\n", line[len - 1]);
     if (len > 1) {
         while (len > 1 && (line[len - 2] == ' ' || line[len - 2] == '\t')) {
-            // printf("Inside while statement\n");
-            if (line[len - 2] == ' ' || line[len - 2] == '\t') {
-                line[len - 2] = '\n';
-                line[len - 1] = '\0';
-            }
-            // printf("%d\n", len);
+            line[len - 2] = '\n';
+            line[len - 1] = '\0';
             --len;
         }
     }
