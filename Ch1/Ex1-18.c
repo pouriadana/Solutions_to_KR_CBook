@@ -20,7 +20,11 @@ int main()
         printf("Line's length before processing:\t%d\n", calulatelength(line));
         processline(line, len);
         printf("Line's length after processing:\t%d\n", calulatelength(line));
-        // printf("%s",line);
+        // if the length of line is 1, it means it's a blank line
+        // therefore, it will be skipped
+        if (calulatelength(line) > 1) {
+            printf("%s", line);
+        }
     }
 }
 
