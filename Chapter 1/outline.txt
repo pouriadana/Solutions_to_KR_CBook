@@ -1,0 +1,8 @@
+read one character from input, save it to variable r
+read input until EOF char by char
+	if it's blank & if previous character is not blank
+		copy to output
+	if it's not blank
+		copy to output
+	save the character to variable r
+	

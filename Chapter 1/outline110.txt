@@ -1,0 +1,9 @@
+read characters until EOF
+	if the input characters is a tab:
+		display '\t'
+	else if the input character is a backspace ('\b'):
+		display '\b'
+	else if the input character is a backslash:
+		dispplay '\\'
+	else
+		display the character
