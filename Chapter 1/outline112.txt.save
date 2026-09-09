@@ -1,0 +1,5 @@
+print input one word per line
+while not reached EOF
+	if we're outside a word and if we used to be in a word
+		print a newline
+	otherwise, keep printing characters as long as they are not whitespace
