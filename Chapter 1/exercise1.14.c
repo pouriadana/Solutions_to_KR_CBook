@@ -1,3 +1,4 @@
+/* Print a histogram of characters in input */
 #include <stdio.h>
 #define NEWLINE '\n'
 #define DRAWSYM '='
