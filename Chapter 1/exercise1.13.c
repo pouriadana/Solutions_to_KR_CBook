@@ -54,4 +54,8 @@ should not be counted in when counting the length of a word, but
 they are if they come immediately before or after a word or 
 they will be considered a word if they are delimted by whitespace
 on both sides. 
-A symbol such as '>' should not be counted as a word (?). */
+* A symbol such as '>' should not be counted as a word (?). 
+* Furthermore, and more importantly, the sentinel for the loop that
+read characters from input and my logic for detecting a word cause
+input files with no whitespace character as their last character to have
+the last word in them ignored. */
