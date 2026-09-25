@@ -3,6 +3,16 @@ While there's input
     Count the length of the word, sub to array to save Count
     Track the maximum length in a max variable
 
+[Horizontal View] 
 Up to the maximum length, go through the lengths array
     For each cell, if cell > 0, print n stars where n == length of arr[cell]
     Print a newline 
+
+[Vertical View]
+Max length is known, make a copy of it
+Go through the length array:
+    if max length copy variable is 0, break out
+    Display a symbol for Any cell with length L where L >= Maximum length 
+    Subtract one from maximum length
+
+Averylargewordindeed
