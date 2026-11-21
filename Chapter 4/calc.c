@@ -15,17 +15,30 @@ int main()
 {
 	char op[MAXOP];
 	int type;
+	double op2;
 
 	while ((type = getop(op)) != EOF) {
 		switch(type) {
 		case NUMBER:
 			push(atof(op));
 			break;
-
 		case '+':
 			push(pop() + pop());
 			break;
-
+		case '-':
+			op2 = pop();
+			push(pop() - op2);
+			break;
+		case '*':
+			push(pop() * pop());
+			break;
+		case '/':
+			op2 = pop();
+			if (op2 != 0.0)
+				push(pop() / op2);
+			else
+				printf("error: division by zero detected\n");
+			break;
 		case '\n':
 			printf("\t%g\n", pop());
 			break;
