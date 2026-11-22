@@ -1,4 +1,4 @@
-/* The calculator program from 4.3 - Chapter 4 p.76 */
+/* exercise 4-3 - CHhapter 4 */
 
 #include <stdio.h>
 #include <stdlib.h>		// atof()
@@ -42,6 +42,13 @@ int main()
 				push(pop() / op2);
 			else
 				printf("error: division by zero detected\n");
+			break;
+		case '%':
+			op2 = pop();
+			if ((int)op2 != 0.0)
+				push((int)pop() % (int)op2);
+			else
+				printf("error: division by zero over modulo\n");
 			break;
 		case '\n':
 			printf("\t%g\n", pop());
@@ -88,8 +95,8 @@ int getop(char s[])
 	while ((s[0] = c = getch()) == ' ' || c == '\t')
 		;
 	s[1] = '\0';
-	if (c == '-' || c == '+')
-		if (isdigit(c2 = getch())) {
+	if (c == '-' || c == '+')		/* collect negative or positive numbers with unary '-', '+' */
+		if (isdigit(c2 = getch()) || c2 == '.') {
 			s[0] = c2;
 			sign = (c == '-') ? -1 : 1;
 			c = c2;
