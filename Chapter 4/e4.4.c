@@ -6,13 +6,17 @@
 
 #define MAXOP 100	// maximum length of the operator or operant
 #define NUMBER '0'
-#define NEGNUMBER '?'
 #define PRINT ':'
+#define DUPLICATE '#'
+#define SWAP '&'
+#define CLEAR '!'
 
 int getop(char s[]);
 void push(double val);
 double pop(void);
 void ptop(void);
+void swap(void);
+void clear(void);
 
 int main()
 {
@@ -52,10 +56,17 @@ int main()
 		case PRINT:
 			ptop();
 			break;
-		/*case '\n':
-			printf("\t%g\n", pop());
-			break;*/
-
+		case DUPLICATE:
+			op2 = pop();
+			push(op2);
+			push(op2);
+			break;
+		case SWAP:
+			swap();
+			break;
+		case CLEAR:
+			clear();
+			break;
 		default:
 			printf("Unrecognized token\n");
 			break;
@@ -94,6 +105,24 @@ void ptop(void)
 		printf("\t%g\n", stack[sp-1]);
 	else
 		printf("\tstack is empty. nothing to display.\n");
+}
+
+void swap(void)
+{
+	double x, y;
+	if (sp > 1) {
+		x = pop();
+		y = pop();
+		push(x);
+		push(y);
+	}
+	else
+		printf("error: swap can't operate on 1 or fewer elements.\n");
+}
+
+void clear(void)
+{
+	sp = 0;
 }
 
 int getch();
