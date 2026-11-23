@@ -2,9 +2,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>		// atof()
-#include <ctype.h>
-#include <math.h>
-#include <string.h>
+#include <ctype.h>		// isdigit(), isalpha()
+#include <math.h>		// sin(), pow(), exp()
+#include <string.h>		// strlen()
 
 #define MAXOP 100	// maximum length of the operator or operant
 #define NUMBER '0'
@@ -74,6 +74,13 @@ int main()
 			break;
 		case SIN:
 			push(sin(pop()));
+			break;
+		case POW:
+			op2 = pop();
+			push(pow(pop(), op2));
+			break;
+		case EXP:
+			push(exp(pop()));
 			break;
 		default:
 			printf("Unrecognized token\n");
