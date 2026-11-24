@@ -44,9 +44,6 @@ int main()
 			varpush(op[0]);
 			break;
 		case ASGN:
-			op2 = pop();
-			varvalues[varpop() - 'a'] = op2;
-			vardecl[]
 			break;
 		case '+':
 			push(pop() + pop());
@@ -107,6 +104,7 @@ int main()
 #define MAXVAL 1000
 
 int sp = 0;
+int vsp = 0;
 double stack[MAXVAL];
 char   vstack[MAXVAL];	// holds single-letter variables in itself
 
@@ -153,6 +151,24 @@ void swap(void)
 void clear(void)
 {
 	sp = 0;
+}
+
+char varpop(void)
+{
+	if (vsp > 0)
+		return vstack[--vsp];
+	else {
+		printf("error: variable stack empty\n");
+		return ' ';
+	}
+}
+
+void varpush(char c)
+{
+	if (vsp < MAXVAL)
+		vstack[vsp++] = c;
+	else
+		printf("error: variable stack empty\n");
 }
 
 int getch();
