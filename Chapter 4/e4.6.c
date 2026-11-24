@@ -7,6 +7,7 @@
 #include <string.h>		// strlen()
 
 #define MAXOP 100	// maximum length of the operator or operant
+#define MAXVAL 1000	// maximum number of elements in the variable declaration array
 #define NUMBER '0'
 #define PRINT ':'
 #define DUPLICATE '#'
@@ -30,10 +31,14 @@ char varpop(void);
 int main()
 {
 	char op[MAXOP];		// holds operand or operator
-	int vardecl[1000];
+	int vardecl[MAXVAL];
 	double varvalues[1000];
 	int type;
 	double op2;
+
+	int i;
+	for (i = 0; i < MAXVAL; i++)
+		vardecl[i] = varvalues[i] = 0;
 
 	while ((type = getop(op)) != EOF) {
 		switch(type) {
@@ -42,6 +47,11 @@ int main()
 			break;
 		case SVAR:
 			varpush(op[0]);
+			/* if this variable is already declared 
+			   retreive the value and push it
+			   into the main stack */
+			if (vardecl[op[0] - 'a'])
+				push(varvalues[op[0] - 'a']);
 			break;
 		case ASGN:
 			break;
