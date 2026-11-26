@@ -29,8 +29,6 @@ void swap(void);
 void clear(void);
 void varpush(char);
 char varpop(void);
-char poptype(void);
-void pushtype(char);
 
 /* global variables */
 char LVAR = 'z';
@@ -206,27 +204,6 @@ void varpush(char c)
 		vstack[vsp++] = c;
 	else
 		printf("error: variable stack empty\n");
-}
-
-char tstack[MAXVAL];
-int tpos = 0;
-
-void pushtype(char type)
-{
-	if (tpos < MAXVAL)
-		tstack[tpos++] = type;
-	else
-		printf("error: type stack is full\n");
-}
-
-char poptype(void)
-{
-	if (tpos > 0)
-		return tstack[--tpos];
-	else {
-		printf("error: stack is empty\n");
-		return ' ';
-	}
 }
 
 int getch();
