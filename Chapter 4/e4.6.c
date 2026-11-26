@@ -18,6 +18,8 @@
 #define EXP '3'
 #define SVAR '4'	// single-letter variable
 #define ASGN '='	// assign command
+#define DECL '5'
+#define UNDECL '6'
 
 int getop(char s[]);
 void push(double val);
@@ -31,14 +33,17 @@ char varpop(void);
 int main()
 {
 	char op[MAXOP];		// holds operand or operator
+	char var;
 	int vardecl[MAXVAL];
 	double varvalues[1000];
 	int type;
 	double op2;
 
 	int i;
-	for (i = 0; i < MAXVAL; i++)
-		vardecl[i] = varvalues[i] = 0;
+	for (i = 0; i < MAXVAL; i++) {
+		vardecl[i] = UNDECL;
+		varvalues[i] = 0;
+	}
 
 	while ((type = getop(op)) != EOF) {
 		switch(type) {
@@ -50,10 +55,14 @@ int main()
 			/* if this variable is already declared 
 			   retreive the value and push it
 			   into the main stack */
-			if (vardecl[op[0] - 'a'])
+			if (vardecl[op[0] - 'a'] == DECL)
 				push(varvalues[op[0] - 'a']);
 			break;
 		case ASGN:
+			op2 = pop();
+			var = varpop();
+			varvalues[var - 'a'] = op2;
+			vardecl[var - 'a'] = DECL;
 			break;
 		case '+':
 			push(pop() + pop());
