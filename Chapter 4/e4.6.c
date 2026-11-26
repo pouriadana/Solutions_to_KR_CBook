@@ -29,32 +29,41 @@ void swap(void);
 void clear(void);
 void varpush(char);
 char varpop(void);
+char poptype(void);
+void pushtype(char);
+
+/* global variables */
+char LVAR = 'z';
 
 int main()
 {
 	char op[MAXOP];		// holds operand or operator
 	char var;
-	int vardecl[MAXVAL];
-	double varvalues[1000];
+	int vardecl[26];
+	double varvalues[26];
 	int type;
-	double op2;
+	double op1, op2;
 
 	int i;
-	for (i = 0; i < MAXVAL; i++) {
+	for (i = 0; i < 26; i++) {
 		vardecl[i] = UNDECL;
 		varvalues[i] = 0;
 	}
+	vardecl[25] = DECL;		// 'z' is the designated variable to hold the last value printed
 
 	while ((type = getop(op)) != EOF) {
 		switch(type) {
 		case NUMBER:
 			push(atof(op));
+			pushtype(NUMBER);
 			break;
 		case SVAR:
+			if (op[0] == LVAR) {
+				push(varvalues[LVAR - 'a']);
+				break;
+			}
 			varpush(op[0]);
-			/* if this variable is already declared 
-			   retreive the value and push it
-			   into the main stack */
+			pushtype(SVAR);
 			if (vardecl[op[0] - 'a'] == DECL)
 				push(varvalues[op[0] - 'a']);
 			break;
@@ -63,9 +72,15 @@ int main()
 			var = varpop();
 			varvalues[var - 'a'] = op2;
 			vardecl[var - 'a'] = DECL;
+			push(op2);
 			break;
 		case '+':
-			push(pop() + pop());
+			op2 = pop();
+			if (poptype() == SVAR)
+				varpop();
+			push(pop() + op2);
+			if (poptype() == SVAR)
+				varpop();
 			break;
 		case '-':
 			op2 = pop();
@@ -111,6 +126,9 @@ int main()
 			break;
 		case EXP:
 			push(exp(pop()));
+			break;
+		case '\n':
+			printf("\t%g\n", varvalues[LVAR - 'a'] = pop());
 			break;
 		default:
 			printf("Unrecognized token\n");
@@ -190,6 +208,27 @@ void varpush(char c)
 		printf("error: variable stack empty\n");
 }
 
+char tstack[MAXVAL];
+int tpos = 0;
+
+void pushtype(char type)
+{
+	if (tpos < MAXVAL)
+		tstack[tpos++] = type;
+	else
+		printf("error: type stack is full\n");
+}
+
+char poptype(void)
+{
+	if (tpos > 0)
+		return tstack[--tpos];
+	else {
+		printf("error: stack is empty\n");
+		return ' ';
+	}
+}
+
 int getch();
 void ungetch(int);
 const char strsin[] = "sin";
@@ -201,7 +240,7 @@ int getop(char s[])
 {
 	int i, c, c2;
 
-	while ((s[0] = c = getch()) == ' ' || c == '\t' || c == '\n')
+	while ((s[0] = c = getch()) == ' ' || c == '\t')
 		;
 	s[1] = '\0';
 	i = 0;
