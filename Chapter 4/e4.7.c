@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
 #define MAX 1000
 enum boolean {FALSE, TRUE} ;
@@ -25,14 +26,17 @@ int main()
 			break;
 		}
 	}
+	getline(line, MAX);
 	printf("\t%s", line);
 }
+
+int getch(void);
 
 int getline(char line[], int size)
 {
 	int i, c;
 
-	for (i = 0; i < size-1 && (c = getchar()) != EOF && c != '\n'; ++i)
+	for (i = 0; i < size-1 && (c = getch()) != EOF && c != '\n'; ++i)
 		line[i] = c;
 	if (c == '\n')
 		line[i++] = c;
@@ -64,12 +68,10 @@ void ungetch(int c)
 void ungets(char s[])
 {
 	int i;
-	for (i = 0; s[i] != '\0' && s[i] != '\n' && s[i] != EOF; i++) {
+
+	for (i = strlen(s) - 1; i >= 0; i--) {		// strlen - 1 to go past '\0'
 		ungetch(s[i]);
 	}
-	if (s[i] == '\n')
-		ungetch(s[i++]);
-	ungetch('\0');
 }
 
 enum boolean alldigits(char s[])
